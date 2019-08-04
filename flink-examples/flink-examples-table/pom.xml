@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.alibaba.blink</groupId>
+		<artifactId>flink-examples</artifactId>
+		<version>1.5.1</version>
+		<relativePath>..</relativePath>
+	</parent>
+
+	<name>flink-examples-table</name>
+	<artifactId>flink-examples-table_${scala.binary.version}</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.alibaba.blink</groupId>
+			<artifactId>flink-table_${scala.binary.version}</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.blink</groupId>
+			<artifactId>flink-streaming-scala_${scala.binary.version}</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<!-- resolve conflict! -->
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>21.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>scala-compile-first</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>add-source</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>scala-test-compile</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<!-- Default Execution -->
+					<execution>
+						<id>default</id>
+						<phase>package</phase>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+
+					<!-- StreamSQL Example -->
+					<execution>
+						<id>StreamSQLExample</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>StreamSQLExample</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.table.examples.scala.StreamSQLExample
+									</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/table/examples/scala/StreamSQLExample.class</include>
+								<include>org/apache/flink/table/examples/scala/StreamSQLExample$*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+
+					<!-- StreamTable Example -->
+					<execution>
+						<id>StreamTableExample</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>StreamTableExample</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.table.examples.scala.StreamTableExample
+									</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/table/examples/scala/StreamTableExample.class</include>
+								<include>org/apache/flink/table/examples/scala/StreamTableExample$*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+
+					<!-- StreamJoinSQL Example -->
+					<execution>
+						<id>StreamJoinSQLExample</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>StreamJoinSQLExample</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.table.examples.scala.StreamJoinSQLExample
+									</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/table/examples/scala/StreamJoinSQLExample.class</include>
+								<include>org/apache/flink/table/examples/scala/StreamJoinSQLExample*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+
+					<!-- WordCountSQL Example -->
+					<execution>
+						<id>WordCountSQL</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>WordCountSQL</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.table.examples.scala.WordCountSQL
+									</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/table/examples/scala/WordCountSQL.class</include>
+								<include>org/apache/flink/table/examples/scala/WordCountSQL$*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>Interactive</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>Interactive</classifier>
+
+							<archive>
+								<manifestEntries>
+									<program-class>org.apache.flink.table.examples.scala.SimpleInteractiveExample
+									</program-class>
+								</manifestEntries>
+							</archive>
+
+							<includes>
+								<include>org/apache/flink/table/examples/scala/SimpleInteractiveExample.class</include>
+								<include>org/apache/flink/table/examples/scala/SimpleInteractiveExample$*.class</include>
+							</includes>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>rename</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<copy
+									file="${project.basedir}/target/flink-examples-table_${scala.binary.version}-${project.version}-StreamSQLExample.jar"
+									tofile="${project.basedir}/target/StreamSQLExample.jar"/>
+								<copy
+									file="${project.basedir}/target/flink-examples-table_${scala.binary.version}-${project.version}-StreamTableExample.jar"
+									tofile="${project.basedir}/target/StreamTableExample.jar"/>
+								<copy
+									file="${project.basedir}/target/flink-examples-table_${scala.binary.version}-${project.version}-WordCountSQL.jar"
+									tofile="${project.basedir}/target/WordCountSQL.jar"/>
+								<copy
+									file="${project.basedir}/target/flink-examples-table_${scala.binary.version}-${project.version}-StreamJoinSQLExample.jar"
+									tofile="${project.basedir}/target/StreamJoinSQLExample.jar"/>
+								<copy
+									file="${project.basedir}/target/flink-examples-table_${scala.binary.version}-${project.version}-Interactive.jar"
+									tofile="${project.basedir}/target/Interactive.jar"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>flink-table-examples_${scala.binary.version}</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<shadeTestJar>false</shadeTestJar>
+							<shadedArtifactAttached>false</shadedArtifactAttached>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<finalName>TableExamples</finalName>
+							<outputFile>flink-examples-table-with-dependencies.jar</outputFile>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<includes>
+										<include>org/apache/calcite/**</include>
+										<include>org/apache/flink/calcite/shaded/**</include>
+										<include>org/apache/flink/table/**</include>
+										<include>org.codehaus.commons.compiler.properties</include>
+										<include>org/codehaus/janino/**</include>
+										<include>org/codehaus/commons/**</include>
+									</includes>
+								</filter>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

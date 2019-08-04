@@ -1,0 +1,248 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<assembly
+		xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+	<id>opt</id>
+	<formats>
+		<format>dir</format>
+	</formats>
+
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<baseDirectory>flink-${project.version}</baseDirectory>
+
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>opt/sql-client</outputDirectory>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+			<useProjectArtifact>false</useProjectArtifact>
+			<scope>provided</scope>
+			<includes>
+				<include>org.datanucleus:datanucleus-api-jdo</include>
+				<include>org.datanucleus:datanucleus-core</include>
+				<include>org.datanucleus:datanucleus-rdbms</include>
+				<include>org.datanucleus:javax.jdo</include>
+			</includes>
+		</dependencySet>
+	</dependencySets>
+
+	<files>
+		<!-- CEP -->
+		<file>
+			<source>../flink-libraries/flink-cep/target/flink-cep_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-cep_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-libraries/flink-cep-scala/target/flink-cep-scala_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-cep-scala_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Gelly -->
+		<file>
+			<source>../flink-libraries/flink-gelly/target/flink-gelly_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-gelly_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-libraries/flink-gelly-scala/target/flink-gelly-scala_${scala.binary.version}-${project.version}-jar-with-dependencies.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-gelly-scala_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Table API-->
+<!--	package into fat jar
+		<file>
+			<source>../flink-libraries/flink-table/target/flink-table_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-table_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+-->
+		<!-- SQL Client -->
+		<file>
+			<source>../flink-libraries/flink-sql-client/target/flink-sql-client-${project.version}.jar</source>
+			<outputDirectory>opt/sql-client</outputDirectory>
+			<destName>flink-sql-client-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- ML -->
+		<file>
+			<source>../flink-libraries/flink-ml/target/flink-ml_${scala.binary.version}-${project.version}-jar-with-dependencies.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-ml_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Metrics -->
+<!--	package into fat jar
+		<file>
+			<source>../flink-metrics/flink-metrics-dropwizard/target/flink-metrics-dropwizard-${project.version}-jar-with-dependencies.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-dropwizard-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+-->
+		<file>
+			<source>../flink-metrics/flink-metrics-ganglia/target/flink-metrics-ganglia-${project.version}-jar-with-dependencies.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-ganglia-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-metrics/flink-metrics-graphite/target/flink-metrics-graphite-${project.version}-jar-with-dependencies.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-graphite-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-metrics/flink-metrics-prometheus/target/flink-metrics-prometheus-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-prometheus-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-metrics/flink-metrics-statsd/target/flink-metrics-statsd-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-statsd-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-metrics/flink-metrics-datadog/target/flink-metrics-datadog-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-datadog-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-metrics/flink-metrics-slf4j/target/flink-metrics-slf4j-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-metrics-slf4j-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-filesystems/flink-s3-fs-hadoop/target/flink-s3-fs-hadoop-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-s3-fs-hadoop-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-filesystems/flink-s3-fs-presto/target/flink-s3-fs-presto-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-s3-fs-presto-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<file>
+			<source>../flink-filesystems/flink-swift-fs-hadoop/target/flink-swift-fs-hadoop-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-swift-fs-hadoop-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Queryable State -->
+		<file>
+			<source>../flink-queryable-state/flink-queryable-state-runtime/target/flink-queryable-state-runtime_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/</outputDirectory>
+			<destName>flink-queryable-state-runtime_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Streaming Python API -->
+		<file>
+			<source>../flink-libraries/flink-streaming-python/target/flink-streaming-python_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt</outputDirectory>
+			<destName>flink-streaming-python_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Yarn Shuffle -->
+		<file>
+			<source>../flink-yarn-shuffle/target/flink-yarn-shuffle-${project.version}.jar</source>
+			<outputDirectory>opt/yarn-shuffle</outputDirectory>
+			<destName>flink-yarn-shuffle-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Kafka Connectors -->
+		<file>
+			<source>../flink-connectors/flink-connector-kafka-0.8/target/flink-connector-kafka-0.8_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/connectors/kafka08</outputDirectory>
+			<destName>flink-connector-kafka-0.8_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+		<file>
+			<source>../flink-connectors/flink-connector-kafka-0.9/target/flink-connector-kafka-0.9_${scala.binary.version}-${project.version}-sql-jar.jar</source>
+			<outputDirectory>opt/connectors/kafka09</outputDirectory>
+			<destName>flink-connector-kafka-0.9_${scala.binary.version}-${project.version}-sql-jar.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+		<file>
+			<source>../flink-connectors/flink-connector-kafka-0.10/target/flink-connector-kafka-0.10_${scala.binary.version}-${project.version}-sql-jar.jar</source>
+			<outputDirectory>opt/connectors/kafka010</outputDirectory>
+			<destName>flink-connector-kafka-0.10_${scala.binary.version}-${project.version}-sql-jar.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+		<file>
+			<source>../flink-connectors/flink-connector-kafka-0.11/target/flink-connector-kafka-0.11_${scala.binary.version}-${project.version}-sql-jar.jar</source>
+			<outputDirectory>opt/connectors/kafka011</outputDirectory>
+			<destName>flink-connector-kafka-0.11_${scala.binary.version}-${project.version}-sql-jar.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Hive Connector -->
+		<file>
+			<source>../flink-connectors/flink-connector-hive/target/flink-connector-hive_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/connectors/</outputDirectory>
+			<destName>flink-connector-hive_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- Hadoop Connector -->
+		<file>
+			<source>../flink-connectors/flink-hadoop-compatibility/target/flink-hadoop-compatibility_${scala.binary.version}-${project.version}.jar</source>
+			<outputDirectory>opt/connectors/</outputDirectory>
+			<destName>flink-connector-hadoop-compatibility_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+
+		<!-- HBase Connector -->
+		<file>
+			<source>../flink-connectors/flink-hbase/target/flink-hbase_${scala.binary.version}-${project.version}-sql-jar.jar</source>
+			<outputDirectory>opt/connectors/</outputDirectory>
+			<destName>flink-hbase_${scala.binary.version}-${project.version}.jar</destName>
+			<fileMode>0644</fileMode>
+		</file>
+	</files>
+</assembly>
